@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Haven Hostel & PG | Knowledge Park 3, Greater Noida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 900: '#14532d'
+                        },
+                        sun: {
+                            500: '#f59e0b', 600: '#d97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border: 1px solid rgba(226, 232, 240, 0.8); }
+        
+        /* SPLASH SCREEN */
+        #splash-screen {
+            position: fixed; inset: 0; z-index: 99999;
+            background: linear-gradient(135deg, #14532d 0%, #16a34a 100%);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        #splash-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+        .pulse-logo { animation: pulseLogo 2s infinite; }
+        @keyframes pulseLogo {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 25px rgba(245, 158, 11, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        /* AUTO-MOVING REVIEWS CAROUSEL ANIMATION */
+        @keyframes scrollReviews {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .reviews-track {
+            display: flex;
+            width: max-content;
+            animation: scrollReviews 30s linear infinite;
+        }
+        .reviews-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* GLOWING WHATSAPP BUTTON */
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            background: #25d366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: whatsappGlow 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.8);
+        }
+        @keyframes whatsappGlow {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- FORCED AUTO-LOAD SPLASH SCREEN -->
+    <div id="splash-screen">
+        <div class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center shadow-2xl pulse-logo mb-6">
+            <i class="fa-solid fa-hotel text-4xl text-brand-600"></i>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-wide mb-2 text-center">Sun Haven Hostel & PG</h1>
+        <p class="text-emerald-100 text-sm font-semibold tracking-widest uppercase mb-8 text-center px-4">Knowledge Park III, Greater Noida, Uttar Pradesh</p>
+        <div class="w-56 h-2 bg-emerald-900/50 rounded-full overflow-hidden border border-emerald-700/40">
+            <div id="splash-bar" class="h-full bg-sun-500 w-0 transition-all duration-1000 ease-out"></div>
+        </div>
+        <p class="text-emerald-200 text-xs mt-3 tracking-wider font-medium animate-pulse">Loading Elite Experience...</p>
+    </div>
+
+    <!-- GLOWING WHATSAPP FLOATING WIDGET -->
+    <a href="https://wa.me/919876543210?text=Hi%20Sun%20Haven%20Team,%20I%20am%20interested%20in%20booking%20a%20Double%20Sharing%20AC%20room.%20Please%20share%20availability." target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" onclick="switchTab('home'); return false;" class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-brand-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-brand-600/30">
+                    <i class="fa-solid fa-hotel text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold text-slate-900 tracking-tight block leading-none">Sun Haven</span>
+                    <span class="text-xs font-semibold text-brand-600 tracking-wider uppercase">Hostel & PG • Greater Noida</span>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center gap-6 font-medium text-sm text-slate-600">
+                <button onclick="switchTab('home')" class="nav-link text-brand-600 font-bold transition hover:text-brand-600">Home</button>
+                <button onclick="switchTab('rooms')" class="nav-link transition hover:text-brand-600">Rooms & Photos</button>
+                <button onclick="switchTab('amenities')" class="nav-link transition hover:text-brand-600">Amenities</button>
+                <button onclick="switchTab('rules')" class="nav-link transition hover:text-brand-600">House Rules</button>
+                <button onclick="switchTab('privacy')" class="nav-link transition hover:text-brand-600">Privacy Policy</button>
+                <button onclick="switchTab('terms')" class="nav-link transition hover:text-brand-600">Terms</button>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="tel:+919876543210" class="hidden sm:inline-flex items-center gap-2 bg-emerald-50 text-brand-700 font-semibold px-4 py-2.5 rounded-xl border border-emerald-200 hover:bg-emerald-100 transition">
+                    <i class="fa-solid fa-phone text-xs"></i> +91 98765 43210
+                </a>
+                <button onclick="openCallModal('General Inquiry')" class="bg-brand-600 text-white font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-brand-600/30 hover:bg-brand-700 transition">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="pt-20 min-h-screen">
+
+        <!-- TAB: HOME (EXTREMELY LONG, COMPREHENSIVE LANDING PAGE) -->
+        <div id="tab-home" class="tab-content">
+            
+            <!-- 1. HERO SECTION -->
+            <section class="relative bg-gradient-to-br from-brand-900 via-brand-700 to-emerald-800 text-white py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto relative z-10 text-center max-w-4xl">
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-sun-500 font-bold text-xs uppercase tracking-wider mb-6 border border-white/20 shadow-lg">
+                        <i class="fa-solid fa-star"></i> Rated 4.8/5 by Students & Working Professionals in KP-3
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
+                        Luxury Living & Hostel Experience in <span class="text-sun-500">Greater Noida</span>
+                    </h1>
+                    <p class="text-lg text-emerald-100 mb-10 max-w-2xl mx-auto">
+                        Fully furnished AC rooms, high-speed Wi-Fi, hygienic 4-times meals, and 24/7 security near India Expo Mart & top colleges in Knowledge Park III.
+                    </p>
+
+                    <!-- MMT Style Quick Booking Widget -->
+                    <div class="bg-white text-slate-800 p-6 rounded-3xl shadow-2xl text-left grid grid-cols-1 md:grid-cols-3 gap-4 border border-slate-100">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Select Room Type</label>
+                            <select id="quick-room-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 focus:outline-none focus:border-brand-600">
+                                <option value="Single Private Room (AC)">Single Occupancy (AC)</option>
+                                <option value="Double Sharing Room (AC)">Double Sharing (AC)</option>
+                                <option value="Triple Sharing Room">Triple Sharing (Budget)</option>
+                                <option value="Luxury Studio Suite">Luxury Studio Suite</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Check-in Date</label>
+                            <input type="date" id="quick-date" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 font-semibold text-slate-700 focus:outline-none focus:border-brand-600">
+                        </div>
+                        <div class="flex items-end">
+                            <button onclick="handleQuickBook()" class="w-full bg-sun-500 hover:bg-sun-600 text-slate-900 font-extrabold py-3.5 px-6 rounded-xl shadow-lg shadow-sun-500/30 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-phone-volume"></i> Instant Call & Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. TRUST METRICS BAR -->
+            <section class="bg-white py-10 border-b border-slate-100 shadow-sm">
+                <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <div class="text-3xl font-extrabold text-brand-600 mb-1">500+</div>
+                        <div class="text-sm font-medium text-slate-500">Happy Residents</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-brand-600 mb-1">100%</div>
+                        <div class="text-sm font-medium text-slate-500">Power Backup & Wi-Fi</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-brand-600 mb-1">4 Meals</div>
+                        <div class="text-sm font-medium text-slate-500">Nutritious & Hygienic</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-extrabold text-brand-600 mb-1">24/7</div>
+                        <div class="text-sm font-medium text-slate-500">CCTV & Warden Security</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. ABOUT SUN HAVEN HOSTEL -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Welcome to Sun Haven</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6 leading-snug">The Ultimate Student & Professional Living Hub in Greater Noida</h2>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            Located strategically in Knowledge Park III, Greater Noida, Sun Haven Hostel & PG is designed to offer a peaceful, secure, and inspiring environment. Whether you are studying at Galgotias, Sharda, Greater Noida Institute of Technology, or working near India Expo Mart, our hostel provides seamless connectivity and luxury lifestyle standards.
+                        </p>
+                        <ul class="space-y-3 mb-8 text-slate-700 font-medium">
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-600"></i> Walking distance to major educational institutions and metro stations.</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-600"></i> Strict biometric entry and professional wardens for absolute safety.</li>
+                            <li class="flex items-center gap-3"><i class="fa-solid fa-circle-check text-brand-600"></i> Daily housekeeping and professional laundry maintenance.</li>
+                        </ul>
+                        <button onclick="openCallModal('General Inquiry')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-xl shadow-lg shadow-brand-600/30 transition">
+                            Schedule a Visit / Call Now
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Hostel Room" class="rounded-3xl shadow-md object-cover h-64 w-full">
+                        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80" alt="Lounge Area" class="rounded-3xl shadow-md object-cover h-64 w-full mt-8">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. GOOGLE MAPS LOCATION & DISTANCE CALCULATOR -->
+            <section class="py-16 bg-slate-100/70 border-y border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-12">
+                        <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Prime Location in Uttar Pradesh</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Interactive Distance Guide</h2>
+                        <p class="text-slate-600">Strategically located in Knowledge Park III with lightning-fast commute times to top universities and business hubs.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center hover:shadow-md transition">
+                            <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Sharda & Galgotias University</h3>
+                            <p class="text-brand-600 font-extrabold text-lg mb-3">5 – 10 Minutes</p>
+                            <p class="text-slate-500 text-sm">Quick e-rickshaw and cab accessibility directly from our gates to campus gates.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center hover:shadow-md transition">
+                            <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">India Expo Mart</h3>
+                            <p class="text-brand-600 font-extrabold text-lg mb-3">3 Minutes</p>
+                            <p class="text-slate-500 text-sm">Ideal for corporate interns, professionals, and visitors attending exhibitions and expos.</p>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center hover:shadow-md transition">
+                            <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                                <i class="fa-solid fa-train-subway"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">Knowledge Park II Metro Station</h3>
+                            <p class="text-brand-600 font-extrabold text-lg mb-3">5 Minutes Walking</p>
+                            <p class="text-slate-500 text-sm">Seamless connectivity to Noida and Delhi via the Aqua Line metro network.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. FEATURED ROOMS GALLERY (MakeMyTrip Style Photo Cards) -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Accommodations</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Explore Room Photos & Pricing</h2>
+                    </div>
+                    <button onclick="switchTab('rooms')" class="mt-4 md:mt-0 text-brand-600 font-bold hover:underline flex items-center gap-1">
+                        View All Rooms & Photos <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Room 1 -->
+                    <div class="glass-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition group">
+                        <div class="relative h-64 overflow-hidden bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80" alt="Single Room" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                                <i class="fa-solid fa-user text-sun-500"></i> Single Occupancy
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-slate-900">Private Single Room (AC)</h3>
+                                <div class="text-right">
+                                    <span class="text-2xl font-extrabold text-brand-600">₹14,999</span>
+                                    <span class="text-xs text-slate-400 block">/ month</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-6">Equipped with luxury single bed, wardrobe, study desk, attached washroom, and high-speed Wi-Fi.</p>
+                            <button onclick="openCallModal('Private Single Room - ₹14,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-phone text-xs"></i> Call Us to Book
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Room 2 -->
+                    <div class="glass-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition group">
+                        <div class="relative h-64 overflow-hidden bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80" alt="Double Sharing" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                                <i class="fa-solid fa-users text-sun-500"></i> Double Sharing
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-slate-900">Double Sharing Room (AC)</h3>
+                                <div class="text-right">
+                                    <span class="text-2xl font-extrabold text-brand-600">₹9,999</span>
+                                    <span class="text-xs text-slate-400 block">/ month per bed</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-6">Spacious room shared by two, with individual beds, study tables, separate lockers, and AC.</p>
+                            <button onclick="openCallModal('Double Sharing Room - ₹9,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-phone text-xs"></i> Call Us to Book
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Room 3 -->
+                    <div class="glass-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition group">
+                        <div class="relative h-64 overflow-hidden bg-slate-200">
+                            <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80" alt="Triple Sharing" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <div class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                                <i class="fa-solid fa-user-group text-sun-500"></i> Triple Sharing
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-slate-900">Triple Sharing Room</h3>
+                                <div class="text-right">
+                                    <span class="text-2xl font-extrabold text-brand-600">₹7,999</span>
+                                    <span class="text-xs text-slate-400 block">/ month per bed</span>
+                                </div>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-6">Budget-friendly comfortable triple sharing room with all modern amenities and delicious meals included.</p>
+                            <button onclick="openCallModal('Triple Sharing Room - ₹7,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-phone text-xs"></i> Call Us to Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. AUTO-MOVING REVIEWS CAROUSEL -->
+            <section class="py-20 bg-slate-900 text-white overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+                    <span class="text-sun-500 font-bold uppercase tracking-wider text-sm block mb-2">Testimonials</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">What Our Residents Say</h2>
+                    <p class="text-slate-400">Hear from students and working professionals living at Sun Haven Hostel.</p>
+                </div>
+
+                <!-- Infinite Scrolling Reviews Track -->
+                <div class="w-full overflow-hidden relative">
+                    <div class="reviews-track flex gap-8">
+                        <!-- Review 1 -->
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Living at Sun Haven has been amazing. The food is hygienic, Wi-Fi never drops during exams, and the rooms are very spacious. Best hostel in Knowledge Park 3!"</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">A</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Aman Sharma</h4>
+                                    <span class="text-xs text-slate-400">B.Tech Student, Greater Noida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Very secure for girls and working professionals. The warden is very supportive and the location is close to India Expo Mart. Highly recommend!"</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">P</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Priya Singh</h4>
+                                    <span class="text-xs text-slate-400">IT Professional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 3 -->
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Clean rooms, great laundry facility, and 24/7 power backup. It genuinely feels like a second home in Uttar Pradesh."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">R</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Rohit Verma</h4>
+                                    <span class="text-xs text-slate-400">Management Student</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duplicate for Seamless Infinite Scroll Loop -->
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Living at Sun Haven has been amazing. The food is hygienic, Wi-Fi never drops during exams, and the rooms are very spacious. Best hostel in Knowledge Park 3!"</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">A</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Aman Sharma</h4>
+                                    <span class="text-xs text-slate-400">B.Tech Student, Greater Noida</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Very secure for girls and working professionals. The warden is very supportive and the location is close to India Expo Mart. Highly recommend!"</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">P</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Priya Singh</h4>
+                                    <span class="text-xs text-slate-400">IT Professional</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-8 rounded-3xl border border-slate-700 w-96 shrink-0 shadow-lg">
+                            <div class="flex text-sun-500 gap-1 mb-4 text-sm">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="text-slate-300 text-sm mb-6 leading-relaxed">"Clean rooms, great laundry facility, and 24/7 power backup. It genuinely feels like a second home in Uttar Pradesh."</p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-brand-600 rounded-full flex items-center justify-center font-bold text-white">R</div>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Rohit Verma</h4>
+                                    <span class="text-xs text-slate-400">Management Student</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. FAQ SECTION -->
+            <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Got Questions?</span>
+                    <h2 class="text-3xl font-extrabold text-slate-900">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">Is electricity and Wi-Fi included in the monthly rent?</h4>
+                        <p class="text-slate-600 text-sm">Yes! High-speed optical fiber Wi-Fi and power backup are completely included. AC electricity charges are calculated as per sub-meter reading or fixed package terms.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">What are the hostel gate timings?</h4>
+                        <p class="text-slate-600 text-sm">The main entrance gate closes at 10:30 PM for resident safety. Late entry requires prior notice to the warden.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="font-bold text-slate-900 text-lg mb-2">How many meals are provided daily?</h4>
+                        <p class="text-slate-600 text-sm">We provide 4 times meals daily: Breakfast, Lunch, Evening Snacks, and Dinner with a rotating weekly menu.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- TAB: ROOMS & PHOTOS -->
+        <div id="tab-rooms" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Photo Gallery & Rates</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">MakeMyTrip Style Room Showcase</h2>
+                <p class="text-slate-600">Explore authentic photography of our fully furnished rooms, lounge, dining mess, and modern washrooms.</p>
+            </div>
+
+            <!-- ROOM PHOTO GRID -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+                <!-- Room Detail Card 1 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row gap-6">
+                    <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=600&q=80" alt="Single" class="w-full md:w-56 h-56 object-cover rounded-2xl bg-slate-100">
+                    <div class="flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Single Private Room (AC)</h3>
+                                <span class="text-xl font-extrabold text-brand-600">₹14,999/mo</span>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-4">Complete privacy with attached modern bathroom, king single bed, study table, and dedicated wardrobe.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wifi mr-1"></i> Wi-Fi</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wind mr-1"></i> AC</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-utensils mr-1"></i> Meals</span>
+                            </div>
+                        </div>
+                        <button onclick="openCallModal('Single Private Room (AC) - ₹14,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition text-center">
+                            <i class="fa-solid fa-phone mr-2"></i> Call to Book Room
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Detail Card 2 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row gap-6">
+                    <img src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80" alt="Double" class="w-full md:w-56 h-56 object-cover rounded-2xl bg-slate-100">
+                    <div class="flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Double Sharing Room (AC)</h3>
+                                <span class="text-xl font-extrabold text-brand-600">₹9,999/mo</span>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-4">Perfect for roommates or friends. Includes two separate beds, study tables, cupboards, and attached washroom.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wifi mr-1"></i> Wi-Fi</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wind mr-1"></i> AC</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-utensils mr-1"></i> Meals</span>
+                            </div>
+                        </div>
+                        <button onclick="openCallModal('Double Sharing Room (AC) - ₹9,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition text-center">
+                            <i class="fa-solid fa-phone mr-2"></i> Call to Book Bed
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Detail Card 3 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row gap-6">
+                    <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=600&q=80" alt="Triple" class="w-full md:w-56 h-56 object-cover rounded-2xl bg-slate-100">
+                    <div class="flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Triple Sharing Room</h3>
+                                <span class="text-xl font-extrabold text-brand-600">₹7,999/mo</span>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-4">Cost-effective and vibrant accommodation with individual beds, lockers, study spaces, and full amenities.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wifi mr-1"></i> Wi-Fi</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-utensils mr-1"></i> Meals</span>
+                            </div>
+                        </div>
+                        <button onclick="openCallModal('Triple Sharing Room - ₹7,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition text-center">
+                            <i class="fa-solid fa-phone mr-2"></i> Call to Book Bed
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room Detail Card 4 -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row gap-6">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Studio" class="w-full md:w-56 h-56 object-cover rounded-2xl bg-slate-100">
+                    <div class="flex flex-col justify-between flex-1">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Luxury Studio Suite</h3>
+                                <span class="text-xl font-extrabold text-brand-600">₹18,999/mo</span>
+                            </div>
+                            <p class="text-slate-500 text-sm mb-4">Premium apartment-style room with lounge seating, mini fridge, work desk, and luxury attached bath.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-wifi mr-1"></i> High Wi-Fi</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-tv mr-1"></i> Smart TV</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-utensils mr-1"></i> Meals</span>
+                            </div>
+                        </div>
+                        <button onclick="openCallModal('Luxury Studio Suite - ₹18,999/mo')" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition text-center">
+                            <i class="fa-solid fa-phone mr-2"></i> Call to Book Suite
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDITIONAL HOSTEL PHOTO GALLERY -->
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-6 text-center">Hostel Environment & Facilities Gallery</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="h-48 rounded-2xl overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=600&q=80" alt="Dining Mess" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                </div>
+                <div class="h-48 rounded-2xl overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80" alt="Study Lounge" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                </div>
+                <div class="h-48 rounded-2xl overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80" alt="Bathroom" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                </div>
+                <div class="h-48 rounded-2xl overflow-hidden shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="Common Area" class="w-full h-full object-cover hover:scale-105 transition duration-300">
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: AMENITIES -->
+        <div id="tab-amenities" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">World-Class Facilities</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">Everything You Need for a Comfortable Stay</h2>
+                <p class="text-slate-600">Designed with modern students and working professionals in mind.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">4 Times Hygienic Meals</h3>
+                    <p class="text-slate-500 text-sm">Breakfast, Lunch, Evening Snacks, and Dinner prepared in an ultra-clean hygienic mess with RO drinking water.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-wifi"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">High-Speed Wi-Fi</h3>
+                    <p class="text-slate-500 text-sm">Dedicated optical fiber internet connection across all floors for seamless online classes and remote work.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">24/7 Security & CCTV</h3>
+                    <p class="text-slate-500 text-sm">Gated premises with round-the-clock security guards, biometric/smart-card entry, and full CCTV surveillance.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Power Backup</h3>
+                    <p class="text-slate-500 text-sm">Uninterrupted electricity supply with heavy-duty generator backup so your study and work never stops.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Laundry & Housekeeping</h3>
+                    <p class="text-slate-500 text-sm">Daily room cleaning services and hassle-free washing machine/laundry area access.</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 text-center">
+                    <div class="w-16 h-16 bg-emerald-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6">
+                        <i class="fa-solid fa-square-parking"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Spacious Parking</h3>
+                    <p class="text-slate-500 text-sm">Dedicated secure parking space for two-wheelers and cycles inside the hostel compound.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: HOUSE RULES -->
+        <div id="tab-rules" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-slate-200">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Guidelines</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6">House Rules & Policies</h2>
+                <p class="text-slate-600 mb-8">To ensure a peaceful, safe, and pleasant living environment for all residents, Sun Haven Hostel follows these standard guidelines:</p>
+                
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-emerald-50 text-brand-600 rounded-xl flex items-center justify-center shrink-0 font-bold">1</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-lg mb-1">Entry & Curfew Timings</h4>
+                            <p class="text-slate-500 text-sm">Main gates close at 10:30 PM daily for safety. Late entries must be pre-informed to the warden with valid reason.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-emerald-50 text-brand-600 rounded-xl flex items-center justify-center shrink-0 font-bold">2</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-lg mb-1">Visitor Policy</h4>
+                            <p class="text-slate-500 text-sm">Parents and guardians are allowed in the common lobby area. Unregistered overnight guests are strictly prohibited.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-emerald-50 text-brand-600 rounded-xl flex items-center justify-center shrink-0 font-bold">3</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-lg mb-1">No Smoking & Alcohol</h4>
+                            <p class="text-slate-500 text-sm">Sun Haven is a strictly non-smoking and alcohol-free zone. Violation leads to immediate termination of hostel agreement without refund.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-10 h-10 bg-emerald-50 text-brand-600 rounded-xl flex items-center justify-center shrink-0 font-bold">4</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-lg mb-1">Rent Payment Due Date</h4>
+                            <p class="text-slate-500 text-sm">Monthly rent must be paid on or before the 5th of every calendar month to avoid late fee penalties.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: PRIVACY POLICY -->
+        <div id="tab-privacy" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-slate-200">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Legal</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6">Privacy Policy</h2>
+                <p class="text-slate-600 mb-6">At Sun Haven Hostel, Greater Noida, we respect your privacy and protect your personal data collected during inquiry and admission.</p>
+                
+                <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
+                    <h3 class="font-bold text-slate-900 text-base pt-2">Information Collection</h3>
+                    <p>We collect basic contact details (Name, Phone Number, Email) and identification documents (Aadhaar, College/Work ID) strictly for police verification and hostel registration as per Uttar Pradesh government norms.</p>
+                    
+                    <h3 class="font-bold text-slate-900 text-base pt-2">Data Security</h3>
+                    <p>All personal and identity information is stored securely and never shared with third-party marketing agencies or unauthorized individuals.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: TERMS & CONDITIONS -->
+        <div id="tab-terms" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+            <div class="bg-white p-8 sm:p-12 rounded-3xl shadow-sm border border-slate-200">
+                <span class="text-brand-600 font-bold uppercase tracking-wider text-sm block mb-2">Agreement</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-6">Terms & Conditions</h2>
+                <div class="space-y-4 text-slate-600 text-sm leading-relaxed">
+                    <p>1. Admission is confirmed only upon submission of completed KYC documents and advance payment.</p>
+                    <p>2. Security deposit is refundable upon checkout after inspecting room condition and clearing all utility/mess dues with a 30-day prior notice.</p>
+                    <p>3. Management holds the right to modify hostel timings or rules for safety and administrative improvements.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center text-white">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white">Sun Haven</span>
+                </div>
+                <p class="text-sm text-slate-400 mb-4">Your home away from home in Knowledge Park III, Greater Noida. Safe, luxurious, and affordable.</p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+                    <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 text-white rounded-xl flex items-center justify-center transition"><i class="fa-brands fa-whatsapp text-sm"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                <ul class="space-y-2.5 text-sm font-medium">
+                    <li><button onclick="switchTab('home')" class="hover:text-white transition">Home</button></li>
+                    <li><button onclick="switchTab('rooms')" class="hover:text-white transition">Rooms & Photos</button></li>
+                    <li><button onclick="switchTab('amenities')" class="hover:text-white transition">Amenities</button></li>
+                    <li><button onclick="switchTab('rules')" class="hover:text-white transition">House Rules</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Policies</h4>
+                <ul class="space-y-2.5 text-sm font-medium">
+                    <li><button onclick="switchTab('privacy')" class="hover:text-white transition">Privacy Policy</button></li>
+                    <li><button onclick="switchTab('terms')" class="hover:text-white transition">Terms & Conditions</button></li>
+                    <li><button onclick="openCallModal('Support Query')" class="hover:text-white transition">Help & Support</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4">Contact Us</h4>
+                <p class="text-sm mb-2"><i class="fa-solid fa-location-dot text-brand-500 mr-2"></i> Knowledge Park III, Greater Noida, Uttar Pradesh 201310</p>
+                <p class="text-sm mb-2"><i class="fa-solid fa-phone text-brand-500 mr-2"></i> +91 98765 43210</p>
+                <p class="text-sm"><i class="fa-solid fa-envelope text-brand-500 mr-2"></i> info@sunhavenhostel.com</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-8 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>&copy; 2026 Sun Haven Hostel & PG, Greater Noida. All rights reserved.</div>
+            <div>Designed and developed by <a href="https://aeshwd.github.io/ss-official/" target="_blank" class="text-sun-500 font-bold hover:underline">SkylineSyntax Enterprises</a></div>
+        </div>
+    </footer>
+
+    <!-- POPUP MODAL FOR CALL / BOOKING -->
+    <div id="call-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden px-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative text-center transform transition-all scale-95 opacity-0" id="modal-content">
+            <button onclick="closeCallModal()" class="absolute top-4 right-4 w-9 h-9 bg-slate-100 hover:bg-slate-200 rounded-full flex items-center justify-center text-slate-600 transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-16 h-16 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <h3 class="text-2xl font-extrabold text-slate-900 mb-1">Instant Booking Call</h3>
+            <p id="modal-room-title" class="text-brand-600 font-semibold text-sm mb-6">Selected: Room & Bed Inquiry</p>
+            <p class="text-slate-500 text-sm mb-8">Click below to directly connect with our manager for instant seat availability and booking confirmation at Sun Haven Hostel, Greater Noida.</p>
+            <a href="tel:+919876543210" class="block w-full bg-brand-600 hover:bg-brand-700 text-white font-extrabold py-4 rounded-2xl shadow-lg shadow-brand-600/30 transition text-lg mb-3">
+                <i class="fa-solid fa-phone mr-2"></i> Call Now: +91 98765 43210
+            </a>
+            <button onclick="closeCallModal()" class="text-slate-400 hover:text-slate-600 text-sm font-semibold">Cancel</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Guaranteed Auto-Load Splash Screen Sequence
+        window.addEventListener('load', () => {
+            const bar = document.getElementById('splash-bar');
+            const splash = document.getElementById('splash-screen');
+            
+            setTimeout(() => { bar.style.width = '60%'; }, 200);
+            setTimeout(() => { bar.style.width = '100%'; }, 700);
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+            }, 1200);
+        });
+
+        // Tab Switcher
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Quick Book from Hero
+        function handleQuickBook() {
+            const roomType = document.getElementById('quick-room-select').value;
+            const checkDate = document.getElementById('quick-date').value;
+            openCallModal(roomType + (checkDate ? ' (Check-in: ' + checkDate + ')' : ''));
+        }
+
+        // Call Modal Trigger
+        function openCallModal(roomName) {
+            document.getElementById('modal-room-title').innerText = 'Selected: ' + roomName;
+            const modal = document.getElementById('call-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95', 'opacity-0');
+                content.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeCallModal() {
+            const modal = document.getElementById('call-modal');
+            const content = document.getElementById('modal-content');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+</body>
+</html>
